@@ -53,8 +53,8 @@
     <UnityVersion>2020.3.19f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\TextScript.cs" />
-    <Compile Include="Assets\Scripts\StartButton.cs" />
+    <Compile Include="Assets\scripts\TextScript.cs" />
+    <Compile Include="Assets\scripts\StartButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

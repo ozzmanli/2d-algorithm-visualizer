@@ -38,7 +38,7 @@ public class TextScript : MonoBehaviour
         }
         else
         {
-            for(int j = squareIndex; j < n; j++)
+            for (int j = squareIndex; j < n; j++)
             {
                 height = Random.Range(0, 5.0F);
                 scaleChange = new Vector3(thickness, height, 1f);
@@ -49,10 +49,48 @@ public class TextScript : MonoBehaviour
             }
         }
     }
-    public void swapSquare(int i, int j)
+
+    public void onButtonPressed()
     {
-        Vector3 temp = new Vector3(squareList[i].transform.position.x, squareList[j].transform.position.y, squareList[j].transform.position.z); ;
-        squareList[i].transform.position = new Vector3(squareList[j].transform.position.x, squareList[i].transform.position.y, squareList[i].transform.position.z);
-        squareList[j].transform.position = temp;
+        bubbleSort();
+    }
+
+    private void bubbleSort()
+    {
+        Debug.Log("BEFORE");
+        for (int i = 0; i < squareList.Count; i++)
+        {
+            Debug.Log("i: " + i + " heigth: " + squareList[i].GetComponent<Renderer>().bounds.extents.y * 2);
+        }
+
+        for (int i = 0; i < squareList.Count; i++)
+        {
+            //Debug.Log("i: " + i + " heigth: " + squareList[i].GetComponent<Renderer>().bounds.extents.y * 2);
+            for (int j = 0; j < squareList.Count - (1 + i); j++)
+            {
+                float height1 = squareList[j].GetComponent<Renderer>().bounds.extents.y * 2;
+                float height2 = squareList[j + 1].GetComponent<Renderer>().bounds.extents.y * 2;
+                if (height1 > height2)
+                {
+
+                    Vector3 temp = new Vector3(squareList[j].transform.position.x, squareList[j].transform.position.y, 0F);
+                    squareList[j].transform.position = new Vector3(squareList[j + 1].transform.position.x, squareList[j].transform.position.y, 0F);
+                    squareList[j + 1].transform.position = new Vector3(temp.x, squareList[j + 1].transform.position.y, 0F);
+                }
+            }
+        }
+
+        Debug.Log("AFTER");
+        for (int i = 0; i < squareList.Count; i++)
+        {
+            Debug.Log("i: " + i + " heigth: " + squareList[i].GetComponent<Renderer>().bounds.extents.y * 2);
+        }
+    }
+
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(2f);
+
+        // Code to execute after the delay
     }
 }
