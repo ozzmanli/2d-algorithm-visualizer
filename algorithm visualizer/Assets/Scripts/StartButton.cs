@@ -12,6 +12,11 @@ public class StartButton : MonoBehaviour
 
     public void OnButtonPress()
     {
+        // get components and start swapping
+        // add vector lerp.
+        // sorting shall start on button press.
+        // add options to choose respective algorithm. 
+
 
     }
 }
