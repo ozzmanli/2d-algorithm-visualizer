@@ -52,17 +52,12 @@ public class TextScript : MonoBehaviour
 
     public void onButtonPressed()
     {
-        bubbleSort();
+        StartCoroutine(bubbleSort(0.1f));
     }
 
-    private void bubbleSort()
+    private IEnumerator bubbleSort(float delay)
     {
-        Debug.Log("BEFORE");
-        for (int i = 0; i < squareList.Count; i++)
-        {
-            Debug.Log("i: " + i + " heigth: " + squareList[i].GetComponent<Renderer>().bounds.extents.y * 2);
-        }
-
+        WaitForSeconds wait = new WaitForSeconds(delay);
         for (int i = 0; i < squareList.Count; i++)
         {
             //Debug.Log("i: " + i + " heigth: " + squareList[i].GetComponent<Renderer>().bounds.extents.y * 2);
@@ -72,25 +67,17 @@ public class TextScript : MonoBehaviour
                 float height2 = squareList[j + 1].GetComponent<Renderer>().bounds.extents.y * 2;
                 if (height1 > height2)
                 {
+                    Vector3 tempLocalScale = new Vector3(squareList[j + 1].transform.localScale.x, squareList[j].transform.localScale.y, squareList[j + 1].transform.localScale.z);
+                    squareList[j].transform.localScale = new Vector3(squareList[j].transform.localScale.x, squareList[j + 1].transform.localScale.y, squareList[j ].transform.localScale.z);
+                    squareList[j + 1].transform.localScale = tempLocalScale;
 
-                    Vector3 temp = new Vector3(squareList[j].transform.position.x, squareList[j].transform.position.y, 0F);
-                    squareList[j].transform.position = new Vector3(squareList[j + 1].transform.position.x, squareList[j].transform.position.y, 0F);
-                    squareList[j + 1].transform.position = new Vector3(temp.x, squareList[j + 1].transform.position.y, 0F);
+                    Vector3 tempPosition = new Vector3(squareList[j + 1].transform.position.x, squareList[j].transform.position.y, 0);
+                    squareList[j].transform.position = new Vector3(squareList[j].transform.position.x, squareList[j + 1].transform.position.y, 0);
+                    squareList[j + 1].transform.position = new Vector3(tempPosition.x, tempPosition.y, 0);
+
                 }
             }
+            yield return wait;
         }
-
-        Debug.Log("AFTER");
-        for (int i = 0; i < squareList.Count; i++)
-        {
-            Debug.Log("i: " + i + " heigth: " + squareList[i].GetComponent<Renderer>().bounds.extents.y * 2);
-        }
-    }
-
-    IEnumerator ExecuteAfterTime(float time)
-    {
-        yield return new WaitForSeconds(2f);
-
-        // Code to execute after the delay
     }
 }
